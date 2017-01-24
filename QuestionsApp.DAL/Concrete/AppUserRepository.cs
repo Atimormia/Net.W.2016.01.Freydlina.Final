@@ -14,10 +14,12 @@ namespace QuestionsApp.DAL.Concrete
     public class AppUserRepository: RepositoryBase<DalAppUser,ApplicationUser> ,IAppUserRepository
     {
         private UserManager<ApplicationUser> userManager;
+        private RoleManager<ApplicationRole> roleManager;
 
-        public AppUserRepository(UserManager<ApplicationUser> userManager, IDatabaseFactory databaseFactory):base(databaseFactory)
+        public AppUserRepository(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IDatabaseFactory databaseFactory):base(databaseFactory)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
         
         public async Task<DalAppUser> FindByEmailAsync(string email)
@@ -58,6 +60,9 @@ namespace QuestionsApp.DAL.Concrete
 
         public async Task AddToRoleAsync(string userId, string role)
         {
+            var roleEntity = await roleManager.FindByNameAsync(role);
+            if (roleEntity == null)
+                await roleManager.CreateAsync(new ApplicationRole {Id = Guid.NewGuid().ToString(), Name = role});
             await userManager.AddToRoleAsync(userId, role);
         }
 
@@ -96,6 +101,11 @@ namespace QuestionsApp.DAL.Concrete
             {
                 userManager.Dispose();
                 userManager = null;
+            }
+            if (roleManager != null)
+            {
+                roleManager.Dispose();
+                roleManager = null;
             }
         }
     }

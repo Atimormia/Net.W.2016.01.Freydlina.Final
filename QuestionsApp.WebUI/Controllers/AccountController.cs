@@ -100,11 +100,12 @@ namespace QuestionsApp.WebUI.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    Id = Guid.NewGuid().ToString()
-            };
-                var result = await userService.CreateAsync(user, model.Password);
-                var errors = result as string[] ?? result.ToArray();
-                if (!errors.Any())
+                    Id = Guid.NewGuid().ToString(),
+                    PasswordHash = model.Password,
+                    Role = "lector"
+                };
+                var result = await userService.Create(user);
+                if (result.Succedeed)
                 {
                     await SignInAsync(user, isPersistent: false);
 
@@ -116,7 +117,7 @@ namespace QuestionsApp.WebUI.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                AddErrors(errors);
+                ModelState.AddModelError(result.Property, result.Message);
             }
 
             // If we got this far, something failed, redisplay form

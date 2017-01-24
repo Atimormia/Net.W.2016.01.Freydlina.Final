@@ -17,7 +17,7 @@ namespace QuestionsApp.DAL.Infrastructure
         where TDomain : class
     {
         private ApplicationDbContext dataContext;
-        private readonly IDbSet<TDomain> dbset;
+        private IDbSet<TDomain> dbset { get; set; }
         
         protected RepositoryBase(IDatabaseFactory databaseFactory)
         {
@@ -106,8 +106,10 @@ namespace QuestionsApp.DAL.Infrastructure
         public TDal Get(Expression<Func<TDal, bool>> where)
         {
             //dataContext.Entry().Reload();
-            var enumerable = dbset.Select(Mapper.Map<TDomain, TDal>);
-            return enumerable.Where(where.Compile()).FirstOrDefault();
+            var enumerable = dbset.Select(Mapper.Map<TDomain, TDal>).ToList();
+            var filtered = enumerable.Where(where.Compile()).ToList();
+            var result = filtered.FirstOrDefault();
+            return result;
         }
         
         

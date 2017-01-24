@@ -17,7 +17,9 @@ namespace QuestionsApp.WebUI.Mapping
             //Mapper.CreateMap<Report, ReportViewModel>();
             //Mapper.CreateMap<ReportType, ReportTypeViewModel>();
             Mapper.CreateMap<UserContactEntity, UserContactViewModel>();
-            Mapper.CreateMap<UserProfileEntity, UserProfileViewModel>();
+            Mapper.CreateMap<UserProfileEntity, UserProfileViewModel>()
+                .ForMember(x=>x.UserId,opt=>opt.MapFrom(s=>s.AppUserId))
+                .ForMember(x=>x.UserProfileId,opt=>opt.MapFrom(s=>s.Id));
             //Mapper.CreateMap<X, XViewModel>()
             //    .ForMember(x => x.Property1, opt => opt.MapFrom(source => source.PropertyXYZ));
             //Mapper.CreateMap<Goal, GoalListViewModel>().ForMember(x => x.SupportsCount, opt => opt.MapFrom(source => source.Supports.Count))

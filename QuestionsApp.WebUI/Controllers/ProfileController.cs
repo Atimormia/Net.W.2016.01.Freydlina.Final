@@ -17,8 +17,8 @@ namespace QuestionsApp.WebUI.Controllers
 
         public PartialViewResult _UserProfilePartial(string id)
         {
-            UserProfileViewModel userprofile =
-                Mapper.Map<UserProfileEntity, UserProfileViewModel>(userProfileService.GetByAppUserId(id));
+            var profile = userProfileService.GetByAppUserId(id);
+            var userprofile = Mapper.Map<UserProfileEntity, UserProfileViewModel>(profile);
             return PartialView(userprofile);
         }
 

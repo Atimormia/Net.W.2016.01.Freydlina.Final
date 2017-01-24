@@ -56,7 +56,13 @@ namespace QuestionsApp.BLL.Services
             DalAppUser user = await userRepository.FindByEmailAsync(userEntity.Email);
             if (user == null)
             {
-                user = new DalAppUser { Email = userEntity.Email, UserName = userEntity.Email };
+                user = Mapper.Map<AppUserEntity,DalAppUser>(userEntity);
+                //user = new DalAppUser
+                //{
+                //    Email = userEntity.Email,
+                //    UserName = userEntity.Email,
+                //    Id = userEntity.Id,
+                //};
                 var result = await userRepository.CreateAsync(user, userEntity.PasswordHash);
                 var errorsList = result as IList<string> ?? result.ToList();
                 if (errorsList.Any())
@@ -80,6 +86,7 @@ namespace QuestionsApp.BLL.Services
             // авторизуем его и возвращаем объект ClaimsIdentity
             if (user != null)
                 claim = await userRepository.CreateIdentityAsync(user,"ApplicationCookie");
+            await uow.SaveAsync();
             return claim;
         }
 
@@ -95,11 +102,14 @@ namespace QuestionsApp.BLL.Services
                 }
             }
             await Create(adminEntity);
+            await uow.SaveAsync();
         }
 
         public async Task<ClaimsIdentity> CreateIdentityAsync(AppUserEntity user, string authenticationType)
         {
-            return await userRepository.CreateIdentityAsync(Mapper.Map<AppUserEntity, DalAppUser>(user), authenticationType);
+            var result = await userRepository.CreateIdentityAsync(Mapper.Map<AppUserEntity, DalAppUser>(user), authenticationType);
+            await uow.SaveAsync();
+            return result;
         }
 
         public async Task<AppUserEntity> FindAsync(string email, string password)
@@ -108,14 +118,11 @@ namespace QuestionsApp.BLL.Services
             return Mapper.Map<DalAppUser, AppUserEntity>(result);
         }
 
-        public async Task<IEnumerable<string>> CreateAsync(AppUserEntity user, string password)
-        {
-            return await userRepository.CreateAsync(Mapper.Map<AppUserEntity, DalAppUser>(user), password);
-        }
-
         public async Task<bool> ConfirmEmailAsync(string userId, string code)
         {
-            return await userRepository.ConfirmEmailAsync(userId, code);
+            var result = await userRepository.ConfirmEmailAsync(userId, code);
+            await uow.SaveAsync();
+            return result;
         }
 
         public async Task<AppUserEntity> FindByNameAsync(string email)
@@ -131,7 +138,9 @@ namespace QuestionsApp.BLL.Services
 
         public async Task<IEnumerable<string>> ResetPasswordAsync(string id, string code, string password)
         {
-            return await userRepository.ResetPasswordAsync(id, code, password);
+            var result = await userRepository.ResetPasswordAsync(id, code, password);
+            await uow.SaveAsync();
+            return result;
         }
         
     }

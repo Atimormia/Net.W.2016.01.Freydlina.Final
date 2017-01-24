@@ -19,7 +19,6 @@ namespace QuestionsApp.BLL.Interface.Services
         Task SetInitialData(AppUserEntity adminEntity, List<string> roles);
         Task<ClaimsIdentity> CreateIdentityAsync(AppUserEntity user, string authenticationType);
         Task<AppUserEntity> FindAsync(string email, string password);
-        Task<IEnumerable<string>> CreateAsync(AppUserEntity user, string password);
         Task<bool> ConfirmEmailAsync(string userId, string code);
         Task<AppUserEntity> FindByNameAsync(string email);
         Task<bool> IsEmailConfirmedAsync(string id);

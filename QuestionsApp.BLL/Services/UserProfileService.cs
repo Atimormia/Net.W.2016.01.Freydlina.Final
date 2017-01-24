@@ -27,7 +27,9 @@ namespace QuestionsApp.BLL.Services
 
         public UserProfileEntity GetByAppUserId(string userId)
         {
-            return Mapper.Map<DalUserProfile, UserProfileEntity>(userProfileRepository.Get(x=>x.AppUserId == userId));
+            var profile = userProfileRepository.Get(x => x.AppUserId == userId);
+            var result = Mapper.Map<DalUserProfile, UserProfileEntity>(profile);
+            return result;
         }
         
         public void Update(UserProfileEntity user)

@@ -12,7 +12,9 @@ namespace QuestionsApp.WebUI.Mapping
         protected override void Configure()
         {
             //Mapper.CreateMap<UserForm, ApplicationUser>();
-            Mapper.CreateMap<UserProfileViewModel, UserProfileEntity>();
+            Mapper.CreateMap<UserProfileViewModel, UserProfileEntity>()
+                .ForMember(x=>x.AppUserId,opt=>opt.MapFrom(s=>s.UserId))
+                .ForMember(x=>x.Id,opt=>opt.MapFrom(s=>s.UserProfileId));
            // Mapper.CreateMap<UserContactForm,UserContact>();
             //Mapper.CreateMap<ReportTypeForm,ReportType>();
             //Mapper.CreateMap<ReportForm,Report>();

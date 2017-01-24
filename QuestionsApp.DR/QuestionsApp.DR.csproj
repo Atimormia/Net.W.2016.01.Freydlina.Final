@@ -121,7 +121,6 @@
     <Compile Include="Authentication\DefaultFormsAuthentication.cs" />
     <Compile Include="Authentication\IFormsAuthentication.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\BllToDtoMappingProfile.cs" />
     <Compile Include="Mapping\DomainToDtoMappingProfile.cs" />
     <Compile Include="Mapping\DtoToBllMappingProfile.cs" />

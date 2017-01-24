@@ -24,7 +24,7 @@ namespace QuestionsApp.DR
             System.Data.Entity.Database.SetInitializer(new QuestionsAppSampleData());
             SetAutofacContainer(mvcType);
             //Configure AutoMapper
-            AutoMapperConfiguration.Configure();
+            //AutoMapperConfiguration.Configure();
 
         }
         private static void SetAutofacContainer(Type mvcType)
