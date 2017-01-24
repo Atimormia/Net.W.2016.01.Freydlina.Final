@@ -1,0 +1,72 @@
+﻿@model IEnumerable<QuestionsApp.WebUI.ViewModels.LectionHeaderViewModel>
+@if (Request.IsAuthenticated)
+{
+    ViewBag.Title = "Home Page";
+
+    @Html.ActionLink("Create lection", "CreateHeader", null, new {@class = "btn btn-default pull-right"})
+    <h2>My lections</h2>
+    
+    if (Model == null || Model.Count() == 0)
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                There are not lections in your profile
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var header in Model)
+        {
+            <div class="panel panel-default" id="lection">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        @*@Html.ActionLink("Create Event", "CreateEvent",new {userId = header.Id},new {@class = "btn btn-default btn-xs"})*@
+                        <a href="/Lection/CreateEvent/@header.Id" type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicons glyphicons-plus"></span>Create Event
+                        </a>
+                        <a href="/Lection/EditHeader/@header.Id" type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicons glyphicons-edit"></span>Edit
+                        </a>
+                        <a href="/Lection/DeleteHeader/@header.Id" type="button" class="btn btn-default btn-xs" onclick = "return confirm('Do you really want to delete this lection with all its events?')">
+                            <span class="glyphicons glyphicons-bin"></span>Delete
+                        </a>
+                    </div>
+                    @Html.DisplayFor(lectionHeader => header.LectionTitle)
+                </div>
+                <div class="panel-body">
+                    @if (header.LectionEvents == null || header.LectionEvents.Count == 0)
+                    {
+                        <p>
+                                There are not events of this lection in your profile
+                        </p>
+                    }
+                    else
+                    {
+                        foreach (var lectionEvent in header.LectionEvents)
+                        {
+                            <div class="panel panel-default" id="event">
+                                <div class="panel-body">
+                                    <a href="/Lection/LectionEventPage/@lectionEvent.Id">
+                                        @Html.DisplayFor(lection => lectionEvent.Auditory)
+                                        @Html.DisplayFor(lection => lectionEvent.Organization)
+                                    </a>
+
+                                    <div class="btn-group pull-right">
+                                        <a href="/Lection/EditEvent/@lectionEvent.Id" class="btn btn-default btn-xs">
+                                            <span class="glyphicons glyphicons-edit"></span>Edit
+                                        </a>
+                                        <a href="/Lection/DeleteEvent/@lectionEvent.Id" class="btn btn-default btn-xs" onclick="return confirm('Do you really want to delete this event?')">
+                                            <span class="glyphicons glyphicons-bin"></span>Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+        
+}

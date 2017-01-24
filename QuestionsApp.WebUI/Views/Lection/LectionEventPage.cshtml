@@ -1,0 +1,52 @@
+﻿@model QuestionsApp.WebUI.ViewModels.QuestionViewModel
+@{
+    ViewBag.Title = "LectionEventPage";
+}
+
+@Html.Action("LectionHeader", new { id = Model.LectionEventId })
+
+<hr>
+<div id="questions">
+    @Html.Action("Questions",new {id = Model.LectionEventId})
+</div>
+
+@using (Ajax.BeginForm("AddQuestion", new AjaxOptions { UpdateTargetId = "questions", OnSuccess = "Reset();"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValuserIdationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorName, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.AuthorName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValuserIdationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuestionDescription, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.QuestionDescription,new { @class = "form-control",@rows="5", @id="desc"} )
+                @Html.ValuserIdationMessageFor(model => model.QuestionDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.HuserIddenFor(model => model.LectionEventId)
+
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="Create" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function Reset() {
+        $("#desc").val("");
+        return true;
+    }
+</script>
+
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

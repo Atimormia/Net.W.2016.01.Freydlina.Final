@@ -1,0 +1,62 @@
+﻿@model QuestionsApp.WebUI.ViewModels.SearchViewModel
+@{
+    ViewBag.Title = "SearchResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <h4>Search results for "@Model.SearchText" are..</h4>
+</div>
+@if (!Model.Lections.Any())
+{
+    <div class="alert">No lections to display</div>
+}
+else
+{
+    <div class="row">
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Theme")
+                </th>
+                <th>
+                    @Html.DisplayName("Organization")
+                </th>
+                <th>
+                    @Html.DisplayName("Auditory")
+                </th>
+                <th>
+                    @Html.DisplayName("Lector")
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Lections)
+            {
+                <tr>
+                    <td>
+                        <a href=@item.LectionUrl>
+                            @Html.DisplayFor(modelItem => item.LectionHeader.LectionTitle)
+                        </a>
+                    </td>
+                    <td>
+                        <a href=@item.LectionUrl>
+                            @Html.DisplayFor(modelItem => item.Organization)
+                        </a>
+                    </td>
+                    <td>
+                        <a href=@item.LectionUrl>
+                            @Html.DisplayFor(modelItem => item.Auditory)
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LectionHeader.UserProfile.FirstName)
+                        @Html.DisplayFor(modelItem => item.LectionHeader.UserProfile.FamilyName)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+

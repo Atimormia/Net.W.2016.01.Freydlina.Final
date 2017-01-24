@@ -1,0 +1,15 @@
+﻿@model QuestionsApp.WebUI.ViewModels.LectionHeaderViewModel
+
+<div class="row">
+    <div class="col-md-10">
+        <h2>@Html.DisplayFor(model => model.LectionTitle)</h2>
+        <p>@Html.DisplayFor(model => model.LectionDescription)</p>
+    </div>
+    <div class="col-md-2">
+        @if (Model.QrCodeImagePath != null)
+        {
+            <img src=@Model.QrCodeImagePath alt="QR-code">
+        }
+        Lection ID: @Html.DisplayFor(model => model.Id)
+    </div>
+</div>

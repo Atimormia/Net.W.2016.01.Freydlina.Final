@@ -1,0 +1,58 @@
+﻿@model QuestionsApp.WebUI.ViewModels.LoginViewModel
+
+<div class="row">
+    <section id="loginForm">
+        @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Use a local account to log in.</h4>
+            <hr/>
+            @Html.ValuserIdationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new {@class = "col-md-3 control-label"})
+                <div class="col-md-9">
+                    @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
+                    @Html.ValuserIdationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new {@class = "col-md-3 control-label"})
+                <div class="col-md-9">
+                    @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                    @Html.ValuserIdationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <input type="submit" value="Log in" class="btn btn-primary"/>
+                </div>
+            </div>
+            <p>
+                @Html.ActionLink("Register", "Register","Account") if you don't have a local account.
+            </p>
+        }
+    </section>
+</div>
+<div class="row">
+    <section id="socialLoginForm">
+        @*@Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })*@
+    </section>
+</div>
+
+    @*@section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }*@
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

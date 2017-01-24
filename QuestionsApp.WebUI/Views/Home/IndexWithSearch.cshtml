@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>About</h1>
+    <p class="lead">Service for lectors and speackers.</p>
+</div>
+<div class="row">
+    <h2>Search (jQuery)</h2>
+    @using (Ajax.BeginForm("_Search", new AjaxOptions {UpdateTargetId = "results"}))
+    {
+        <div class="form-group">
+            @Html.Label("Search:", new {@class = "col-md-2 control-label"})
+            <div class="col-md-4">
+                @Html.TextBox("query", "", new {@class = "form-control"})
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-default" value="Search"/>
+            </div>
+
+        </div>
+    }
+
+</div>
+@*<div class="row" userId="results"></div>*@
+
+<script type="text/javascript">
+    function OnSuccess(data) {
+        var results = $('#results'); // получаем нужный элемент
+        results.empty(); //очищаем элемент
+        for (var i = 0; i < data.length; i++) {
+            results.append('<li>' + data[i].Title + '</li>'); // добавляем данные в список
+        }
+    }
+</script>
+
+<div class="row">
+    <h2>Search (JSON)</h2>
+    @using (Ajax.BeginForm("JsonSearch", new AjaxOptions { OnSuccess = "OnSuccess" }))
+    {
+        <div class="form-group">
+            @Html.Label("Search:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBox("query", "", new { @class = "form-control" })
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-default" value="Search" />
+            </div>
+
+        </div>
+    }
+
+</div>
+<div class="row" id="results"></div>
+
+@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+

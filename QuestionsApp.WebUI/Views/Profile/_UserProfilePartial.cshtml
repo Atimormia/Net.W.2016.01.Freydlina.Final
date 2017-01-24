@@ -1,0 +1,73 @@
+﻿@model QuestionsApp.WebUI.ViewModels.UserProfileViewModel
+@{
+    ViewBag.Title = "_UserProfilePartial";
+}
+<div class ="well" id="userprofile">
+    <div class="row">
+        <div class="col-md-4" id="profilepic">
+            <div class="row">
+                @if (String.IsNullOrEmpty(Model.PhotoUrl))
+                {
+                    <img src="../../Content/images/default-avatar.png" class="thumbnail" alt="avatar"/>
+                }
+                else
+                {
+                    <img src="@Url.Content(Model.PhotoUrl)" class="thumbnail" alt="avatar"/>
+                }
+            </div>
+            @*<div class="row">
+                <div class="btn-group">
+                    <a class="file-input-wrapper btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-folder-open"></span>
+                        <input type="file">
+                    </a>
+                    <button type="button" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+            </div>*@
+        </div>
+        <div class="col-md-8">
+            <h5>@User.Identity.Name</h5>
+            <h3>@Model.FirstName @Model.SecondName</h3>
+            <h3>@Model.FamilyName</h3>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <label for="about">About:</label>
+        <div class="panel panel-default" id="about">
+            <div class="panel-body">@Model.About</div>
+        </div>
+    </div>
+    <div class="row">
+        <label for="contacts">Contacts:</label>
+        <div class="panel panel-default" id="contacts">
+            <i class="glyphicon glyphicon-envelope"></i>
+            @Model.PublicEmail
+            <br/>
+            <i class="glyphicons glyphicons-earphone"></i>
+            @Model.PublicPhoneNumber
+            <br/>
+            @if (Model.UserContacts != null)
+            {
+                foreach (var item in Model.UserContacts)
+                 {
+                     <label>@item.ContactName:</label>
+                     @item.ContactContent
+                     <br/>
+                 }
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('ready', function() {
+        $("#picfile").fileinput({ showCaption: false });
+    });
+    $('input[type=file]').bootstrapFileInput();
+    $('.file-inputs').bootstrapFileInput();
+</script>
+
+<script src="~/Scripts/bootstrap.file-input.js"></script>
