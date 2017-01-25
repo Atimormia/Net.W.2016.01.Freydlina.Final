@@ -70,7 +70,7 @@ namespace QuestionsApp.BLL.Services
                 // добавляем роль
                 await userRepository.AddToRoleAsync(user.Id, userEntity.Role);
                 // создаем профиль клиента
-                DalUserProfile userProfile = new DalUserProfile { AppUserId = user.Id };
+                DalUserProfile userProfile = new DalUserProfile { UserId = user.Id };
                 userProfileRepository.Add(userProfile);
                 await uow.SaveAsync();
                 return new OperationDetails(true, "Регистрация успешно пройдена", "");

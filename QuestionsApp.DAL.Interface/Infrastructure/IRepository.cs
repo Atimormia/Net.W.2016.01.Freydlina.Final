@@ -18,8 +18,4 @@ namespace QuestionsApp.DAL.Interface.Infrastructure
         IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
         //IPagedList<T> GetPage<TOrder>(Page page, Expression<Func<T, bool>> where, Expression<Func<T, TOrder>> order);
     }
-
-    public interface ILectionHeaderRepository: IRepository<DalLectionHeader> { }
-
-    public interface IUserProfileRepository : IRepository<DalUserProfile> { }
 }

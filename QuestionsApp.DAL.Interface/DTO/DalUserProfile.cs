@@ -17,6 +17,6 @@ namespace QuestionsApp.DAL.Interface.DTO
         public string ProfileUrl { get; set; }
         public byte[] Photo { get; set; }
         public string About { get; set; }
-        public string AppUserId { get; set; }
+        public string UserId { get; set; }
     }
 }

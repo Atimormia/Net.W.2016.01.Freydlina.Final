@@ -20,7 +20,7 @@ namespace QuestionsApp.WebUI.ViewModels
 
         public virtual UserProfileViewModel UserProfile { get; set; }
 
-        public virtual ICollection<LectionEventViewModel> LectionEvents { get; set; }
+        public virtual IEnumerable<LectionEventViewModel> LectionEvents { get; set; }
     }
     
 }

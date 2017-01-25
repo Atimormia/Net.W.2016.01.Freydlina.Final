@@ -22,7 +22,7 @@ namespace QuestionsApp.DR.Mapping
             Mapper.CreateMap<Report, DalReport>();
             Mapper.CreateMap<ReportType, DalReportType>();
             Mapper.CreateMap<UserContact, DalUserContact>();
-            Mapper.CreateMap<UserProfile, DalUserProfile>().ForMember(x=>x.AppUserId,opt=>opt.MapFrom(s=>s.UserId));
+            Mapper.CreateMap<UserProfile, DalUserProfile>().ForMember(x=>x.Id,opt=>opt.MapFrom(s=>s.UserProfileId));
             //Mapper.CreateMap<X, XViewModel>()
             //    .ForMember(x => x.Property1, opt => opt.MapFrom(source => source.PropertyXYZ));
             //Mapper.CreateMap<Goal, GoalListViewModel>().ForMember(x => x.SupportsCount, opt => opt.MapFrom(source => source.Supports.Count))

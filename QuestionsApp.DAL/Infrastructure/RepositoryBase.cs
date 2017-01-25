@@ -80,7 +80,9 @@ namespace QuestionsApp.DAL.Infrastructure
         {
             try
             {
-                return dbset.Select(Mapper.Map<TDomain, TDal>).Where(where.Compile()).ToList();
+                var dals = dbset.Select(Mapper.Map<TDomain, TDal>).ToList();
+                var result = dals.Where(where.Compile()).ToList();
+                return result;
             }
             catch (Exception)
             {
@@ -115,12 +117,5 @@ namespace QuestionsApp.DAL.Infrastructure
         
     }
 
-    public class LectionHeaderRepository : RepositoryBase<DalLectionHeader,LectionHeader>, ILectionHeaderRepository
-    {
-        public LectionHeaderRepository(IDatabaseFactory databaseFactory)
-            : base(databaseFactory)
-            {
-        }
-    }
     
 }

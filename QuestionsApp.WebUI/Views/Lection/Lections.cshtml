@@ -35,7 +35,7 @@
                     @Html.DisplayFor(lectionHeader => header.LectionTitle)
                 </div>
                 <div class="panel-body">
-                    @if (header.LectionEvents == null || header.LectionEvents.Count == 0)
+                    @if (header.LectionEvents == null || !header.LectionEvents.Any())
                     {
                         <p>
                                 There are not events of this lection in your profile

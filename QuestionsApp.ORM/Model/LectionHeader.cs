@@ -20,9 +20,6 @@ namespace QuestionsApp.ORM.Model
 
         [Column(TypeName = "text")]
         public string LectionDescription { get; set; }
-
-        [Required]
-        public string LectionUrl { get; set; }
         
         public int UserProfileId { get; set; }
 

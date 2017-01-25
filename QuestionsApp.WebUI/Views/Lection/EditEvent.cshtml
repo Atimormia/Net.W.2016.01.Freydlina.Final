@@ -12,15 +12,15 @@
     
     <div class="form-horizontal">
         <hr />
-        @Html.ValuserIdationSummary(true, "", new { @class = "text-danger" })
-        @Html.HuserIddenFor(model => model.Id)
-        @Html.HuserIddenFor(model=>model.LectionHeaderId)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model=>model.LectionHeaderId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Organization, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Organization, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValuserIdationMessageFor(model => model.Organization, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Organization, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -28,7 +28,7 @@
             @Html.LabelFor(model => model.Auditory, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Auditory, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValuserIdationMessageFor(model => model.Auditory, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Auditory, "", new { @class = "text-danger" })
             </div>
         </div>
         
@@ -36,7 +36,7 @@
             @Html.LabelFor(model => model.LectionStatusId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.LectionStatusId, new SelectList(Model.AllLectionStatuses,"Id","StatusName"), new { @class = "form-control" })
-                @Html.ValuserIdationMessageFor(model => model.LectionStatusId, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.LectionStatusId, "", new { @class = "text-danger" })
             </div>
         </div>
 

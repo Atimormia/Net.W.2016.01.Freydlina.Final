@@ -27,7 +27,7 @@ namespace QuestionsApp.BLL.Services
 
         public UserProfileEntity GetByAppUserId(string userId)
         {
-            var profile = userProfileRepository.Get(x => x.AppUserId == userId);
+            var profile = userProfileRepository.Get(x => x.UserId == userId);
             var result = Mapper.Map<DalUserProfile, UserProfileEntity>(profile);
             return result;
         }

@@ -5,7 +5,7 @@ using QuestionsApp.BLL.Interface.Entities;
 
 namespace QuestionsApp.BLL.Interface.Services
 {
-    public interface IQuestionService : IDisposable
+    public interface IQuestionService
     {
         IEnumerable<QuestionEntity> GetMany(Expression<Func<QuestionEntity, bool>> where);
         void Create(QuestionEntity question);

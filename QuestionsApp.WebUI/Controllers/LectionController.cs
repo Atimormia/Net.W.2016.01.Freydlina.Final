@@ -35,9 +35,17 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult Lections()
         {
             var userProfileId = userProfileService.GetByAppUserId(User.Identity.GetUserId()).Id;
-            var headers = lectionHeaderService.GetUserHeaders(userProfileId);
-            List<LectionHeaderViewModel> model = headers.Select(Mapper.Map<LectionHeaderEntity, LectionHeaderViewModel>).ToList();
-            return View(model);
+            var headersView =
+                lectionHeaderService.GetUserHeaders(userProfileId)
+                    .Select(Mapper.Map<LectionHeaderEntity, LectionHeaderViewModel>)
+                    .ToList();
+            foreach (var header in headersView)
+            {
+                header.LectionEvents =
+                    lectionEventService.GetEventsByHeaderId(header.Id)
+                        .Select(Mapper.Map<LectionEventEntity, LectionEventViewModel>).ToList();
+            }
+            return View(headersView);
         }
 
         public ActionResult CreateHeader()
@@ -77,10 +85,9 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult CreateEvent(LectionEventViewModel createdEvent)
         {
             LectionEventEntity lectionEvent = Mapper.Map<LectionEventViewModel, LectionEventEntity>(createdEvent);
-            //lectionEvent.LectionHeader = lectionHeaderService.GetByAppUserId((int)lectionEvent.LectionHeaderId);
-            //LectionStatus status = lectionStatusService.GetByName("Closed");
-            //lectionEvent.LectionStatus = status;
-            //lectionEvent.LectionStatusId = status.Id;
+            //var header = lectionHeaderService.GetById(lectionEvent.LectionHeaderId);
+            var status = lectionStatusService.GetByName("Closed");
+            lectionEvent.LectionStatusId = status.Id;
             if (ModelState.IsValid)
             {
                 lectionEventService.Create(lectionEvent);
@@ -91,12 +98,8 @@ namespace QuestionsApp.WebUI.Controllers
             return View();
         }
 
-        public ActionResult EditEvent(string id)
+        public ActionResult EditEvent(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             LectionEventEntity lectionEvent = lectionEventService.GetById(id);
             if (lectionEvent == null)
             {
@@ -120,22 +123,14 @@ namespace QuestionsApp.WebUI.Controllers
             return View(editedEvent);
         }
         
-        public ActionResult DeleteEvent(string id)
+        public ActionResult DeleteEvent(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             lectionEventService.Delete(id);
             return RedirectToAction("Lections");
         }
 
-        public ActionResult EditHeader(string id)
+        public ActionResult EditHeader(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             LectionHeaderEntity header = lectionHeaderService.GetById(id);
             if (header == null)
             {
@@ -202,12 +197,8 @@ namespace QuestionsApp.WebUI.Controllers
             return View(model);
         }
         
-        public ActionResult LectionHeader(string id)
+        public ActionResult LectionHeader(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             var lectionHeader = lectionEventService.GetHeaderById(id);
 
             //Bitmap img = null;

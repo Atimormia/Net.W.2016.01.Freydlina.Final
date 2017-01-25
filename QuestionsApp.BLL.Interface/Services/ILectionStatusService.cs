@@ -7,8 +7,9 @@ using QuestionsApp.BLL.Interface.Entities;
 
 namespace QuestionsApp.BLL.Interface.Services
 {
-    public interface ILectionStatusService: IDisposable
+    public interface ILectionStatusService
     {
         IEnumerable<LectionStatusEntity> GetAll ();
+        LectionStatusEntity GetByName(string name);
     }
 }

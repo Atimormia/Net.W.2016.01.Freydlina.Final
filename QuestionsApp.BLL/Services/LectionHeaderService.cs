@@ -29,7 +29,7 @@ namespace QuestionsApp.BLL.Services
             unitOfWork.Commit();
         }
 
-        public LectionHeaderEntity GetById(string id)
+        public LectionHeaderEntity GetById(int id)
         {
             return Mapper.Map<DalLectionHeader,LectionHeaderEntity>(lectionHeaderRepository.GetById(id));
         }
@@ -50,14 +50,14 @@ namespace QuestionsApp.BLL.Services
         {
             return
                 lectionHeaderRepository.GetMany(h => h.LectionTitle.Contains(searchText))
-                    .Select(Mapper.Map<DalLectionHeader, LectionHeaderEntity>);
+                    .Select(Mapper.Map<DalLectionHeader, LectionHeaderEntity>).ToList();
         }
 
         public IEnumerable<LectionHeaderEntity> GetUserHeaders(int userProfileId)
         {
-            return
-                lectionHeaderRepository.GetMany(h => h.UserProfileId == userProfileId)
-                    .Select(Mapper.Map<DalLectionHeader, LectionHeaderEntity>);
+            var dals = lectionHeaderRepository.GetMany(h => h.UserProfileId == userProfileId).ToList();
+            var result = dals.Select(Mapper.Map<DalLectionHeader, LectionHeaderEntity>).ToList();
+            return result;
         }
     }
 }

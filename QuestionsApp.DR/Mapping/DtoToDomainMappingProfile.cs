@@ -16,7 +16,7 @@ namespace QuestionsApp.DR.Mapping
         {
             Mapper.CreateMap<DalAppUser, ApplicationUser>();//.ForMember(x => x.Id, opt => opt.Ignore());
             Mapper.CreateMap<DalAppUserRole,ApplicationRole>();
-            Mapper.CreateMap<DalUserProfile, UserProfile>().ForMember(x=>x.UserId,opt=>opt.MapFrom(s=>s.AppUserId));
+            Mapper.CreateMap<DalUserProfile, UserProfile>().ForMember(x=>x.UserProfileId,opt=>opt.MapFrom(s=>s.Id));
             Mapper.CreateMap<DalUserContact, UserContact>();
             Mapper.CreateMap<DalReportType, ReportType>();
             Mapper.CreateMap<DalReport, Report>();

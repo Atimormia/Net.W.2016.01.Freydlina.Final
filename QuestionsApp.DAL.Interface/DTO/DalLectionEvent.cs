@@ -13,6 +13,7 @@ namespace QuestionsApp.DAL.Interface.DTO
         public DateTime LectionEnd { get; set; }
         public string Organization { get; set; }
         public string Auditory { get; set; }
+        public int LectionStatusId { get; set; }
         public int LectionHeaderId { get; set; }
     }
 }

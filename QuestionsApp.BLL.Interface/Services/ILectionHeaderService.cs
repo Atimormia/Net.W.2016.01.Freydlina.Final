@@ -7,7 +7,7 @@ namespace QuestionsApp.BLL.Interface.Services
     public interface ILectionHeaderService
     {
         void Create(LectionHeaderEntity lectionHeader);
-        LectionHeaderEntity GetById(string id);
+        LectionHeaderEntity GetById(int id);
         void Update(LectionHeaderEntity header);
         void Delete(int id);
         IEnumerable<LectionHeaderEntity> Search(string searchText);

@@ -67,6 +67,10 @@
   <ItemGroup>
     <Compile Include="Concrete\AppRoleRepository.cs" />
     <Compile Include="Concrete\AppUserRepository.cs" />
+    <Compile Include="Concrete\LectionEventRepository.cs" />
+    <Compile Include="Concrete\LectionHeaderRepository.cs" />
+    <Compile Include="Concrete\LectionStatusRepository.cs" />
+    <Compile Include="Concrete\QuestionRepository.cs" />
     <Compile Include="Concrete\UserProfileRepository.cs" />
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />

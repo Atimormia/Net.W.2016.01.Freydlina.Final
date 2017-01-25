@@ -57,6 +57,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IAppRoleRepository.cs" />
     <Compile Include="Repository\IAppUserRepository.cs" />
+    <Compile Include="Repository\ILectionEventRepository.cs" />
+    <Compile Include="Repository\ILectionHeaderRepository.cs" />
+    <Compile Include="Repository\ILectionStatusRepository.cs" />
+    <Compile Include="Repository\IQuestionRepository.cs" />
+    <Compile Include="Repository\IUserProfileRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

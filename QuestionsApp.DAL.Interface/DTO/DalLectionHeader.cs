@@ -12,8 +12,6 @@ namespace QuestionsApp.DAL.Interface.DTO
         public string LectionTitle { get; set; }
         public string LectionDescription { get; set; }
         public string LectionUrl { get; set; }
-        public string QrCode { get; set; }
-        public int LectionStatusId { get; set; }
         public int UserProfileId { get; set; }
     }
 }
