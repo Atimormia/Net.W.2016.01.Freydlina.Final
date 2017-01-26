@@ -15,31 +15,13 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserProfileId)
         @Html.HiddenFor(model => model.UserId)
-        @Html.HiddenFor(model => model.OldPhotoUrl)
+        @Html.HiddenFor(model=>model.PhotoType)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PhotoUrl, htmlAttributes: new { @class = "control-label col-md-4" })
+            @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                    @*@if (String.IsNullOrEmpty(Model.PhotoUrl))
-                    {
-                        <img src="../../Content/images/default-avatar.png" class="thumbnail" alt="avatar"/>
-                    }
-                    else
-                    {
-                        <img src="@Url.Content(Model.PhotoUrl)" class="thumbnail" alt="avatar"/>
-                    }*@
-                    @Html.TextBoxFor(model => model.PhotoFile, new { @type = "file"@*, @multipleclass="file-loading"*@ })
-                    @Html.ValidationMessageFor(model => model.PhotoFile)
-                    @*<input userId="userEntitypic" name="userEntitypic" type="file" multiple class="file-loading">*@
-                    @*<div class="btn-group">
-                        <a class="file-input-wrapper btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-folder-open"></span>
-                            <input type="file">
-                        </a>
-                        <button type="button" class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                    </div>*@
+                @Html.TextBoxFor(model => model.PhotoFile, new { @type = "file", @accept = ".png,.jpg,.jpeg,.gif,.tif" })
+                @Html.ValidationMessageFor(model => model.PhotoFile)
             </div>
         </div>
 
@@ -100,13 +82,10 @@
     </div>
 }
 
-@*<script>
-    $(document).on('ready', function() {
-        $("#picfile").fileinput({ showCaption: false });
-    });
+<script>
     $('input[type=file]').bootstrapFileInput();
     $('.file-inputs').bootstrapFileInput();
-</script>*@
+</script>
 
 
 

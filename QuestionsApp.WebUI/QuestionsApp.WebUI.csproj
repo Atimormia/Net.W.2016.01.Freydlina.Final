@@ -206,6 +206,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\default-avatar.png" />
     <Content Include="favicon.ico" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -274,6 +275,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\ProfilePics\" />
+    <Folder Include="Content\images\QRcodes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

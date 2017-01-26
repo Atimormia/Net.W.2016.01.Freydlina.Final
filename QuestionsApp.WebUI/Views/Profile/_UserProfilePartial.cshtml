@@ -6,26 +6,15 @@
     <div class="row">
         <div class="col-md-4" id="profilepic">
             <div class="row">
-                @if (String.IsNullOrEmpty(Model.PhotoUrl))
+                @if (Model.Photo == null)
                 {
-                    <img src="../../Content/images/default-avatar.png" class="thumbnail" alt="avatar"/>
+                    <img src="../../Content/images/default-avatar.png" class="thumbnail" style="width: 100px;" alt="avatar"/>
                 }
                 else
                 {
-                    <img src="@Url.Content(Model.PhotoUrl)" class="thumbnail" alt="avatar"/>
+                    <img src="@Url.Action("LoadFile","Profile", new {user = Model})" class="thumbnail" style="width: 100px;" alt="avatar"/>
                 }
             </div>
-            @*<div class="row">
-                <div class="btn-group">
-                    <a class="file-input-wrapper btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-folder-open"></span>
-                        <input type="file">
-                    </a>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </div>
-            </div>*@
         </div>
         <div class="col-md-8">
             <h5>@User.Identity.Name</h5>
@@ -62,7 +51,7 @@
     </div>
 </div>
 
-<script>
+@*<script>
     $(document).on('ready', function() {
         $("#picfile").fileinput({ showCaption: false });
     });
@@ -70,4 +59,4 @@
     $('.file-inputs').bootstrapFileInput();
 </script>
 
-<script src="~/Scripts/bootstrap.file-input.js"></script>
+<script src="~/Scripts/bootstrap.file-input.js"></script>*@

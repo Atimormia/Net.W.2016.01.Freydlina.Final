@@ -9,6 +9,7 @@
         public string PublicEmail { get; set; }
         public string PublicPhoneNumber { get; set; }
         public byte[] Photo { get; set; }
+        public string PhotoType { get; set; }
         public string About { get; set; }
         public string UserId { get; set; }
     }

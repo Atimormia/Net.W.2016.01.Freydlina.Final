@@ -28,8 +28,9 @@ namespace QuestionsApp.ORM.Model
 
         public string PublicPhoneNumber { get; set; }
         
-        [Column(TypeName = "image")]
         public byte[] Photo { get; set; }
+
+        public string PhotoType { get; set; }
 
         [Column(TypeName = "text")]
         public string About { get; set; }

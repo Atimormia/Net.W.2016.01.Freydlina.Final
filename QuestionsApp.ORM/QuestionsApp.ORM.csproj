@@ -98,6 +98,14 @@
     <Compile Include="Migrations\201701250654407_Header.Designer.cs">
       <DependentUpon>201701250654407_Header.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701262127321_Photo.cs" />
+    <Compile Include="Migrations\201701262127321_Photo.Designer.cs">
+      <DependentUpon>201701262127321_Photo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701262142042_Photo1.cs" />
+    <Compile Include="Migrations\201701262142042_Photo1.Designer.cs">
+      <DependentUpon>201701262142042_Photo1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationRole.cs" />
     <Compile Include="Model\ApplicationUser.cs" />
@@ -121,6 +129,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701250654407_Header.resx">
       <DependentUpon>201701250654407_Header.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701262127321_Photo.resx">
+      <DependentUpon>201701262127321_Photo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701262142042_Photo1.resx">
+      <DependentUpon>201701262142042_Photo1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

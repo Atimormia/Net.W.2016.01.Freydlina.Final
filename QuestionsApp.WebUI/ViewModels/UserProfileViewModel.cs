@@ -18,15 +18,17 @@ namespace QuestionsApp.WebUI.ViewModels
         [Display(Name = "Family name")]
         public string FamilyName { get; set; }
 
+        [Display(Name = "Public email")]
         [DataType(DataType.EmailAddress)]
         public string PublicEmail { get; set; }
 
+        [Display(Name = "Public phone number")]
         [DataType(DataType.PhoneNumber)]
         public string PublicPhoneNumber { get; set; }
 
-        public string OldPhotoUrl { get; set; }
+        public byte[] Photo { get; set; }
 
-        public string PhotoUrl { get; set; }
+        public string PhotoType { get; set; }
 
         public HttpPostedFileBase PhotoFile { get; set; }
 
