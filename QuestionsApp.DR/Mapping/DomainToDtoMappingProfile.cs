@@ -15,25 +15,19 @@ namespace QuestionsApp.DR.Mapping
         {
             Mapper.CreateMap<ApplicationUser,DalAppUser>();
             Mapper.CreateMap<ApplicationRole,DalAppUserRole>();
-            Mapper.CreateMap<LectionEvent, DalLectionEvent>();
             Mapper.CreateMap<LectionStatus, DalLectionStatus>();
             Mapper.CreateMap<LectionHeader, DalLectionHeader>();
+            Mapper.CreateMap<LectionEvent, DalLectionEvent>();
+                //.ForMember(x => x.LectionStatus,
+                //    opt => opt.MapFrom(s => Mapper.Map<LectionStatus, DalLectionStatus>(s.LectionStatus)))
+                //.ForMember(x => x.LectionHeader,
+                //    opt => opt.MapFrom(s => Mapper.Map<LectionHeader, DalLectionHeader>(s.LectionHeader)));
             Mapper.CreateMap<Question, DalQuestion>();
             Mapper.CreateMap<Report, DalReport>();
             Mapper.CreateMap<ReportType, DalReportType>();
             Mapper.CreateMap<UserContact, DalUserContact>();
-            Mapper.CreateMap<UserProfile, DalUserProfile>().ForMember(x=>x.Id,opt=>opt.MapFrom(s=>s.UserProfileId));
-            //Mapper.CreateMap<X, XViewModel>()
-            //    .ForMember(x => x.Property1, opt => opt.MapFrom(source => source.PropertyXYZ));
-            //Mapper.CreateMap<Goal, GoalListViewModel>().ForMember(x => x.SupportsCount, opt => opt.MapFrom(source => source.Supports.Count))
-            //                                          .ForMember(x => x.UserName, opt => opt.MapFrom(source => source.User.UserName))
-            //                                          .ForMember(x => x.StartDate, opt => opt.MapFrom(source => source.StartDate.ToString("dd MMM yyyy")))
-            //                                          .ForMember(x => x.EndDate, opt => opt.MapFrom(source => source.EndDate.ToString("dd MMM yyyy")));
-            //Mapper.CreateMap<Group, GroupsItemViewModel>().ForMember(x => x.CreatedDate, opt => opt.MapFrom(source => source.CreatedDate.ToString("dd MMM yyyy")));
-
-            //Mapper.CreateMap<IPagedList<Group>, IPagedList<GroupsItemViewModel>>().ConvertUsing<PagedListConverter<Group, GroupsItemViewModel>>();
-
-
+            Mapper.CreateMap<UserProfile, DalUserProfile>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(s => s.UserProfileId));
         }
     }
 }

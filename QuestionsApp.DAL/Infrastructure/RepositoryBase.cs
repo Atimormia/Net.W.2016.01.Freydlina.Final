@@ -31,13 +31,16 @@ namespace QuestionsApp.DAL.Infrastructure
 
         public virtual void Add(TDal entity)
         {
-            dbset.Add(Mapper.Map<TDal,TDomain>(entity));
+            var domainEntity = Mapper.Map<TDal, TDomain>(entity);
+            dbset.Add(domainEntity);
+            dataContext.Entry(domainEntity).State = EntityState.Added;
         }
 
         public virtual void Update(TDal entity)
         {
-            dbset.Attach(Mapper.Map<TDal, TDomain>(entity));
-            dataContext.Entry(Mapper.Map<TDal, TDomain>(entity)).State = EntityState.Modified;
+            var domainEntity = Mapper.Map<TDal, TDomain>(entity);
+            dbset.Attach(domainEntity);
+            dataContext.Entry(domainEntity).State = EntityState.Modified;
         }
 
         public virtual void Delete(TDal entity)
@@ -47,9 +50,13 @@ namespace QuestionsApp.DAL.Infrastructure
 
         public virtual void Delete(Expression<Func<TDal, bool>> where)
         {
-            IEnumerable<TDal> objects = dbset.Select(x => Mapper.Map<TDomain, TDal>(x)).Where(where).AsEnumerable();
-            foreach (TDal obj in objects)
-                dbset.Remove(Mapper.Map<TDal,TDomain>(obj));
+            var whereFunc = where.Compile();
+            Func<TDomain,bool> whereConverted = u => whereFunc(Mapper.Map<TDomain,TDal>(u));
+            var objects = dbset.Where(whereConverted).ToList();
+            foreach (TDomain obj in objects)
+            {
+                dbset.Remove(obj);
+            }
         }
 
         public virtual TDal GetById(long id)
@@ -78,16 +85,9 @@ namespace QuestionsApp.DAL.Infrastructure
 
         public virtual IEnumerable<TDal> GetMany(Expression<Func<TDal, bool>> where)
         {
-            try
-            {
-                var dals = dbset.Select(Mapper.Map<TDomain, TDal>).ToList();
-                var result = dals.Where(where.Compile()).ToList();
-                return result;
-            }
-            catch (Exception)
-            {
-                return new List<TDal>();
-            }
+            var dals = dbset.Select(Mapper.Map<TDomain, TDal>).ToList();
+            var result = dals.Where(where.Compile()).ToList();
+            return result;
         }
 
         /// <summary>

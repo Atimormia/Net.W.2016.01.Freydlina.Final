@@ -4,18 +4,18 @@
     ViewBag.Title = "EditUserProfile";
 }
 
-<h2>Edit userEntity profile</h2>
+<h2>Edit user profile</h2>
 
-@using (Html.BeginForm("EditUserProfile", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditUserProfile", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
         <hr />
-        @Html.ValuserIdationSummary(true, "", new { @class = "text-danger" })
-        @Html.HuserIddenFor(model => model.UserProfileId)
-        @Html.HuserIddenFor(model => model.UserId)
-        @Html.HuserIddenFor(model => model.OldPhotoUrl)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserProfileId)
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.OldPhotoUrl)
 
         <div class="form-group">
             @Html.LabelFor(model => model.PhotoUrl, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -29,7 +29,7 @@
                         <img src="@Url.Content(Model.PhotoUrl)" class="thumbnail" alt="avatar"/>
                     }*@
                     @Html.TextBoxFor(model => model.PhotoFile, new { @type = "file"@*, @multipleclass="file-loading"*@ })
-                    @Html.ValuserIdationMessageFor(model => model.PhotoFile)
+                    @Html.ValidationMessageFor(model => model.PhotoFile)
                     @*<input userId="userEntitypic" name="userEntitypic" type="file" multiple class="file-loading">*@
                     @*<div class="btn-group">
                         <a class="file-input-wrapper btn btn-default btn-sm">
@@ -48,7 +48,7 @@
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValuserIdationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -56,7 +56,7 @@
             @Html.LabelFor(model => model.SecondName, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
                 @Html.EditorFor(model => model.SecondName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValuserIdationMessageFor(model => model.SecondName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.SecondName, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -64,7 +64,7 @@
             @Html.LabelFor(model => model.FamilyName, htmlAttributes: new {@class = "control-label col-md-4"})
             <div class="col-md-8">
                 @Html.EditorFor(model => model.FamilyName, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValuserIdationMessageFor(model => model.FamilyName, "", new {@class = "text-danger"})
+                @Html.ValidationMessageFor(model => model.FamilyName, "", new {@class = "text-danger"})
             </div>
         </div>
 
@@ -72,7 +72,7 @@
             @Html.LabelFor(model => model.PublicEmail, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
                 @Html.EditorFor(model => model.PublicEmail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValuserIdationMessageFor(model => model.PublicEmail, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.PublicEmail, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -80,7 +80,7 @@
             @Html.LabelFor(model => model.PublicPhoneNumber, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
                 @Html.EditorFor(model => model.PublicPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValuserIdationMessageFor(model => model.PublicPhoneNumber, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.PublicPhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -88,7 +88,7 @@
             @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
                 @Html.TextAreaFor(model => model.About, new { @class = "form-control", @rows = "5" })
-                @Html.ValuserIdationMessageFor(model => model.About, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -100,14 +100,13 @@
     </div>
 }
 
-<script>
+@*<script>
     $(document).on('ready', function() {
         $("#picfile").fileinput({ showCaption: false });
     });
     $('input[type=file]').bootstrapFileInput();
     $('.file-inputs').bootstrapFileInput();
-</script>
+</script>*@
 
-<script src="~/Scripts/bootstrap.file-input.js"></script>
 
 

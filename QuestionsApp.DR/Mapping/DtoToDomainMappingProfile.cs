@@ -24,8 +24,10 @@ namespace QuestionsApp.DR.Mapping
             Mapper.CreateMap<DalLectionStatus, LectionStatus>();
             Mapper.CreateMap<DalLectionHeader, LectionHeader>();
             Mapper.CreateMap<DalLectionEvent, LectionEvent>();
-            //Mapper.CreateMap<XViewModel, X()
-            //    .ForMember(x => x.PropertyXYZ, opt => opt.MapFrom(source => source.Property1));     
+            //.ForMember(x => x.LectionHeader,
+            //    opt => opt.MapFrom(s => Mapper.Map<DalLectionHeader, LectionHeader>(s.LectionHeader)))
+            //.ForMember(x => x.LectionStatus,
+            //    opt => opt.MapFrom(s => Mapper.Map<DalLectionStatus, LectionStatus>(s.LectionStatus))); 
         }
     }
 }

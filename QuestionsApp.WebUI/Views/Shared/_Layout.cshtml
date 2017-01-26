@@ -4,13 +4,14 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="wuserIdth=device-wuserIdth, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Questions Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
 
     @*@Scripts.Render("~/Scripts/bootstrap.min.js")*@
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>*@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
@@ -52,7 +53,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="/Account/EditUserProfile/@User.Identity.GetUserId()">Edit Profile</a>
+                                <a href="/Profile/EditUserProfile/@User.Identity.GetUserId()">Edit Profile</a>
                                 @*@Html.ActionLink("Edit Profile","EditUserProfile","Account",new { userId = User.Identity.GetUserId() })*@
                             </li>
                             <li>
