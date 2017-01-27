@@ -12,7 +12,7 @@
                 }
                 else
                 {
-                    <img src="@Url.Action("LoadFile","Profile", new {user = Model})" class="thumbnail" style="width: 100px;" alt="avatar"/>
+                    <img src="@Url.Action("LoadFile","Profile", new {id=Model.UserProfileId})" class="thumbnail" style="width: 100px;" alt="avatar"/>
                 }
             </div>
         </div>

@@ -32,29 +32,28 @@ else
                 <th></th>
             </tr>
 
-            @foreach (var item in Model.Lections)
+            @foreach (var lectionHeader in Model.Lections)
             {
-                <tr>
-                    <td>
-                        <a href=@item.LectionUrl>
-                            @Html.DisplayFor(modelItem => item.LectionHeader.LectionTitle)
-                        </a>
-                    </td>
-                    <td>
-                        <a href=@item.LectionUrl>
-                            @Html.DisplayFor(modelItem => item.Organization)
-                        </a>
-                    </td>
-                    <td>
-                        <a href=@item.LectionUrl>
-                            @Html.DisplayFor(modelItem => item.Auditory)
-                        </a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LectionHeader.UserProfile.FirstName)
-                        @Html.DisplayFor(modelItem => item.LectionHeader.UserProfile.FamilyName)
-                    </td>
-                </tr>
+                foreach (var lectionEvent in lectionHeader.LectionEvents)
+                {
+                    <tr>
+                        <td>
+                            <a href=@Url.Action("LectionEventPage", "Lection", new {id = lectionEvent.Id})>
+                                @Html.DisplayFor(modelItem => lectionHeader.LectionTitle)
+                            </a>
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => lectionEvent.Organization)
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => lectionEvent.Auditory)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => lectionHeader.UserProfile.FirstName)
+                            @Html.DisplayFor(modelItem => lectionHeader.UserProfile.FamilyName)
+                        </td>
+                    </tr>
+                }
             }
         </table>
     </div>

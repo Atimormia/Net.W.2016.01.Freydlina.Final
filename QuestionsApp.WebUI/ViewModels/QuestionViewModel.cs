@@ -18,7 +18,7 @@ namespace QuestionsApp.WebUI.ViewModels
 
         public bool IsBanned { get; set; }
 
-        public string UserProfileId { get; set; }
+        public int? UserProfileId { get; set; }
 
         public string LectionEventId { get; set; }
 

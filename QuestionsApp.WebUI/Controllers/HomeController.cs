@@ -19,19 +19,36 @@ namespace QuestionsApp.WebUI.Controllers
         //    new Lection {Title = "Ajax workshop", Desc = "dfjkhjkh", Url = "", Lector = "Fill Richards"}
         //};
         ILectionHeaderService lectionHeaderService;
+        ILectionEventService lectionEventService;
+        IUserProfileService userProfileService;
 
         public HomeController() { }
 
-        public HomeController(ILectionHeaderService lectionHeaderService)
+        public HomeController(ILectionHeaderService lectionHeaderService,ILectionEventService lectionEventService, IUserProfileService userProfileService)
         {
             this.lectionHeaderService = lectionHeaderService;
+            this.lectionEventService = lectionEventService;
+            this.userProfileService = userProfileService;
         }
 
         public ViewResult SearchAll(string searchText)
         {
+            var lections =
+                lectionHeaderService.Search(searchText)
+                    .Select(Mapper.Map<LectionHeaderEntity, LectionHeaderViewModel>)
+                    .ToList();
+            foreach (var lection in lections)
+            {
+                lection.LectionEvents =
+                    lectionEventService.GetEventsByHeaderId(lection.Id)
+                        .Select(Mapper.Map<LectionEventEntity, LectionEventViewModel>)
+                        .ToList();
+                var userProfile = userProfileService.GetById(lection.UserProfileId);
+                lection.UserProfile = Mapper.Map<UserProfileEntity,UserProfileViewModel>(userProfile);
+            }
             SearchViewModel searchViewModel = new SearchViewModel()
             {
-                Lections = lectionHeaderService.Search(searchText).Select(Mapper.Map<LectionHeaderEntity, LectionHeaderViewModel>).ToList(),
+                Lections = lections,
                 SearchText = searchText
             };
             ViewBag.searchtext = searchText;

@@ -30,6 +30,8 @@ namespace QuestionsApp.WebUI.ViewModels
 
         public string PhotoType { get; set; }
 
+        public string PhotoUrl { get; set; }
+
         public HttpPostedFileBase PhotoFile { get; set; }
 
         public string About { get; set; }

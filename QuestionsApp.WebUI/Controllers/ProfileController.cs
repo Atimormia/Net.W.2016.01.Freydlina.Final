@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
@@ -21,7 +23,16 @@ namespace QuestionsApp.WebUI.Controllers
         {
             var profile = userProfileService.GetByAppUserId(id);
             var userprofile = Mapper.Map<UserProfileEntity, UserProfileViewModel>(profile);
+            var file = File(userprofile.Photo, userprofile.PhotoType);
             return PartialView(userprofile);
+        }
+
+        
+        public FileResult LoadFile(int id)
+        {
+            var user = userProfileService.GetById(id);
+            return File(user.Photo, user.PhotoType);
+            //throw new NotImplementedException();
         }
 
         public ActionResult EditUserProfile(string id)
@@ -51,11 +62,6 @@ namespace QuestionsApp.WebUI.Controllers
             }
             return View("EditUserProfile", editedProfile);
         }
-
-        public FileResult LoadFile(UserProfileViewModel user)
-        {
-            return File(user.Photo, user.PhotoType);
-            //throw new NotImplementedException();
-        }
+        
     }
 }

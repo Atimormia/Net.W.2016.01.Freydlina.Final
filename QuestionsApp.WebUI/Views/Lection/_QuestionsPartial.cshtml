@@ -4,10 +4,10 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="media">
-                <div class="media-left col-md-2">
-                    @if (question.UserProfile != null)
-                {
-                        <img src=@question.UserProfile.PhotoUrl class="media-object" style="width: 60px">
+                <div class="media-left">
+                    @if (question.UserProfileId != null)
+                    {
+                        <img src="@Url.Action("LoadFile","Profile",new {id=question.UserProfileId})" class="media-object" style="width: 60px">
                     }
                     else
                     {
@@ -15,7 +15,7 @@
                     }
 
                 </div>
-                <div class="media-body col-md-10">
+                <div class="media-body">
                     <h4 class="media-heading">
                         @if (question.UserProfile != null)
                         {
