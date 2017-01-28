@@ -14,8 +14,6 @@ namespace QuestionsApp.WebUI.ViewModels
         [Column(TypeName = "text")]
         public string LectionDescription { get; set; }
         
-        public string QrCodeImagePath { get; set; }
-
         public int UserProfileId { get; set; }
 
         public virtual UserProfileViewModel UserProfile { get; set; }

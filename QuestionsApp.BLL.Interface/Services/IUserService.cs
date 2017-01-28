@@ -23,6 +23,8 @@ namespace QuestionsApp.BLL.Interface.Services
         Task<AppUserEntity> FindByNameAsync(string email);
         Task<bool> IsEmailConfirmedAsync(string id);
         Task<IEnumerable<string>> ResetPasswordAsync(string id, string code, string password);
+        Task<IEnumerable<string>> ChangePasswordAsync(string userId, string oldPassword, string newPassword);
+        Task<AppUserEntity> FindByIdAsync(string userId);
     }
 
 

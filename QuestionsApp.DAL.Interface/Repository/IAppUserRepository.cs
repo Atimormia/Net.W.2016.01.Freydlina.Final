@@ -17,5 +17,7 @@ namespace QuestionsApp.DAL.Interface.Repository
         Task<bool> ConfirmEmailAsync(string userId, string code);
         Task<bool> IsEmailConfirmedAsync(string id);
         Task<IEnumerable<string>> ResetPasswordAsync(string id, string code, string password);
+        Task<IEnumerable<string>> ChangePasswordAsync(string userId, string oldPassword, string newPassword);
+        Task<DalAppUser> FindByIdAsync(string userId);
     }
 }

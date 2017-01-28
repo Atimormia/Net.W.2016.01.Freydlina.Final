@@ -23,7 +23,6 @@ namespace QuestionsApp.WebUI.Controllers
         {
             var profile = userProfileService.GetByAppUserId(id);
             var userprofile = Mapper.Map<UserProfileEntity, UserProfileViewModel>(profile);
-            var file = File(userprofile.Photo, userprofile.PhotoType);
             return PartialView(userprofile);
         }
 

@@ -33,11 +33,6 @@ namespace QuestionsApp.DAL.Concrete
             try
             {
                 ApplicationUser userDomain = Mapper.Map<DalAppUser, ApplicationUser>(user);
-                //    new ApplicationUser
-                //{
-                //    Email = user.Email,
-                //    UserName = user.UserName
-                //};
                 var result = await userManager.CreateAsync(userDomain, password);
                 return result.Errors;
             }
@@ -95,6 +90,18 @@ namespace QuestionsApp.DAL.Concrete
             return result.Errors;
         }
 
+        public async Task<IEnumerable<string>> ChangePasswordAsync(string userId, string oldPassword, string newPassword)
+        {
+            var result = await userManager.ChangePasswordAsync(userId, oldPassword, newPassword);
+            return result.Errors;
+        }
+
+        public async Task<DalAppUser> FindByIdAsync(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            return Mapper.Map<ApplicationUser,DalAppUser>(user);
+        }
+        
         public void Dispose()
         {
             if (userManager != null)

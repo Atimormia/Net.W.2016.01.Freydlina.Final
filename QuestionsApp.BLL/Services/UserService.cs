@@ -57,12 +57,6 @@ namespace QuestionsApp.BLL.Services
             if (user == null)
             {
                 user = Mapper.Map<AppUserEntity,DalAppUser>(userEntity);
-                //user = new DalAppUser
-                //{
-                //    Email = userEntity.Email,
-                //    UserName = userEntity.Email,
-                //    Id = userEntity.Id,
-                //};
                 var result = await userRepository.CreateAsync(user, userEntity.PasswordHash);
                 var errorsList = result as IList<string> ?? result.ToList();
                 if (errorsList.Any())
@@ -73,9 +67,9 @@ namespace QuestionsApp.BLL.Services
                 DalUserProfile userProfile = new DalUserProfile { UserId = user.Id };
                 userProfileRepository.Add(userProfile);
                 await uow.SaveAsync();
-                return new OperationDetails(true, "Регистрация успешно пройдена", "");
+                return new OperationDetails(true, "Registering is success", "");
             }
-            return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");
+            return new OperationDetails(false, "User with such name exists", "Email");
         }
 
         public async Task<ClaimsIdentity> Authenticate(AppUserEntity userEntity)
@@ -142,6 +136,19 @@ namespace QuestionsApp.BLL.Services
             await uow.SaveAsync();
             return result;
         }
-        
+
+        public async Task<IEnumerable<string>> ChangePasswordAsync(string userId, string oldPassword, string newPassword)
+        {
+            var result =
+                await userRepository.ChangePasswordAsync(userId, oldPassword, newPassword);
+            await uow.SaveAsync();
+            return result;
+        }
+
+        public async Task<AppUserEntity> FindByIdAsync(string userId)
+        {
+            var result = await userRepository.FindByIdAsync(userId);
+            return Mapper.Map<DalAppUser, AppUserEntity>(result);
+        }
     }
 }

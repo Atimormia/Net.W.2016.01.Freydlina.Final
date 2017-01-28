@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -13,7 +14,6 @@ using QuestionsApp.WebUI.ViewModels;
 
 namespace QuestionsApp.WebUI.Controllers
 {
-
     public class LectionController : Controller
     {
         private IUserProfileService userProfileService;
@@ -85,16 +85,13 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult CreateEvent(LectionEventViewModel createdEvent)
         {
             LectionEventEntity lectionEvent = Mapper.Map<LectionEventViewModel, LectionEventEntity>(createdEvent);
-            //var header = lectionHeaderService.GetById(lectionEvent.LectionHeaderId);
             var status = lectionStatusService.GetByName("Closed");
             lectionEvent.LectionStatusId = status.Id;
             if (ModelState.IsValid)
             {
                 lectionEventService.Create(lectionEvent);
-
                 return RedirectToAction("Lections");
             }
-
             return View();
         }
 
@@ -119,7 +116,6 @@ namespace QuestionsApp.WebUI.Controllers
                 lectionEventService.Update(lectionEvent);
                 return RedirectToAction("Lections");
             }
-
             return View(editedEvent);
         }
         
@@ -151,7 +147,6 @@ namespace QuestionsApp.WebUI.Controllers
                 lectionHeaderService.Update(header);
                 return RedirectToAction("Lections");
             }
-
             return View("EditLection", editedHeaderForm);
         }
 
@@ -181,7 +176,6 @@ namespace QuestionsApp.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 questionService.Create(question);
-
                 return RedirectToAction("Questions", new {id= createdQuestion.LectionEventId});
             }
             return View("LectionEventPage", createdQuestion);
@@ -200,25 +194,21 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult LectionHeader(int id)
         {
             var lectionHeader = lectionEventService.GetHeaderById(id);
-
-            //Bitmap img = null;
-            //if (lectionHeader != null && lectionHeader.QrCodeImagePath == null)
-            //{
-            //    QRCodeEncoder encoder = new QRCodeEncoder();
-            //    img = encoder.Encode("/Lection/LectionEventPage/" + id);
-            //}
-            //if (img != null)
-            //{
-            //    var fileName = Guid.NewGuid().ToString();
-            //    var path = "/Content/images/QRcodes/" + fileName + ".png";
-            //    //var fn = Server.MapPath(path);
-            //    img.Save(path, System.Drawing.Imaging.ImageFormat.Png);
-            //    lectionHeaderService.SaveQrCodeImagePath(lectionHeader.Id, path);
-            //    lectionHeader.QrCodeImagePath = path;
-            //}
-            
             LectionHeaderViewModel model = Mapper.Map<LectionHeaderEntity, LectionHeaderViewModel>(lectionHeader);
             return PartialView("_LectionHeaderPartial",model);
+        }
+
+        public FileResult QrCode(int id)
+        {
+            QRCodeEncoder encoder = new QRCodeEncoder();
+            Bitmap img = encoder.Encode("/Lection/LectionEventPage/" + id);
+            byte[] file = null;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                file = stream.ToArray();
+            }
+            return File(file, "image/jpeg");
         }
     }
 }

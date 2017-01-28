@@ -1,6 +1,10 @@
 ﻿@model QuestionsApp.WebUI.ViewModels.QuestionViewModel
 @{
     ViewBag.Title = "LectionEventPage";
+    if (!Request.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_LayoutMin.cshtml";
+    }
 }
 
 @Html.Action("LectionHeader", new { id = Model.LectionEventId })

@@ -6,6 +6,7 @@ using QuestionsApp.BLL.Interface.Services;
 using QuestionsApp.DAL.Interface.DTO;
 using QuestionsApp.DAL.Interface.Infrastructure;
 using QuestionsApp.DAL.Interface.Repository;
+using System.Web.UI.WebControls;
 
 namespace QuestionsApp.BLL.Services
 {
@@ -58,11 +59,12 @@ namespace QuestionsApp.BLL.Services
                 Delete(Mapper.Map<DalLectionEvent, LectionEventEntity>(lectionEvent));
             }
         }
-
+        
         public LectionHeaderEntity GetHeaderById(int id)
         {
-            var headerId = lectionEventRepository.GetById(id).LectionHeaderId;
-            var header = lectionHeaderRepository.GetById(headerId);
+            var headerId = lectionEventRepository.GetById(id)?.LectionHeaderId;
+            if (headerId == null) return null;
+            var header = lectionHeaderRepository.GetById((int) headerId);
             return Mapper.Map<DalLectionHeader,LectionHeaderEntity>(header);
         }
 

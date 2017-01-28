@@ -1,15 +1,17 @@
 ﻿@model QuestionsApp.WebUI.ViewModels.LectionHeaderViewModel
 
+@if (!Request.IsAuthenticated)
+    {
+        @*@Html.Action("_UserProfilePartial", "Profile", new { id = Model.UserProfileId });*@
+    }
+
 <div class="row">
     <div class="col-md-10">
         <h2>@Html.DisplayFor(model => model.LectionTitle)</h2>
         <p>@Html.DisplayFor(model => model.LectionDescription)</p>
     </div>
     <div class="col-md-2">
-        @if (Model.QrCodeImagePath != null)
-        {
-            <img src=@Model.QrCodeImagePath alt="QR-code">
-        }
+            <img src="@Url.Action("QrCode",new {id = Model.Id})" alt="QR-code" class="img-responsive">
         Lection ID: @Html.DisplayFor(model => model.Id)
     </div>
 </div>
