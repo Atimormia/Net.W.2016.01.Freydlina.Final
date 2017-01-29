@@ -302,6 +302,10 @@
       <Project>{99d75da1-3a63-406a-8eb4-cb3ab1e7cc86}</Project>
       <Name>QuestionsApp.DR</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QuestionsApp.Logger\QuestionsApp.Logger.csproj">
+      <Project>{5a78f883-6611-4ac7-a0c4-10de7dd855b6}</Project>
+      <Name>QuestionsApp.Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

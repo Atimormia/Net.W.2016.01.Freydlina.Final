@@ -13,6 +13,7 @@ using QuestionsApp.DAL.Infrastructure;
 using QuestionsApp.DAL.Interface.Infrastructure;
 using QuestionsApp.DR.Authentication;
 using QuestionsApp.DR.Mapping;
+using QuestionsApp.Logger;
 using QuestionsApp.ORM.EF;
 
 namespace QuestionsApp.DR
@@ -23,9 +24,6 @@ namespace QuestionsApp.DR
         {
             System.Data.Entity.Database.SetInitializer(new QuestionsAppSampleData());
             SetAutofacContainer(mvcType);
-            //Configure AutoMapper
-            //AutoMapperConfiguration.Configure();
-
         }
         private static void SetAutofacContainer(Type mvcType)
         {
@@ -33,6 +31,7 @@ namespace QuestionsApp.DR
             builder.RegisterControllers(mvcType.Assembly);
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().InstancePerRequest();
+            builder.Register(c => Logger.Logger.GetInstance()).As<ILogger>().InstancePerRequest();
             builder.RegisterAssemblyTypes(typeof (AppUserRepository).Assembly)
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().InstancePerRequest();
@@ -52,7 +51,6 @@ namespace QuestionsApp.DR
             builder.RegisterFilterProvider();
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-            //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }
 }

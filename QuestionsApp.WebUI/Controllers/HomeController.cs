@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using QuestionsApp.BLL.Interface.Entities;
 using QuestionsApp.BLL.Interface.Services;
+using QuestionsApp.Logger;
 using QuestionsApp.WebUI.ViewModels;
 
 namespace QuestionsApp.WebUI.Controllers
@@ -21,18 +22,21 @@ namespace QuestionsApp.WebUI.Controllers
         ILectionHeaderService lectionHeaderService;
         ILectionEventService lectionEventService;
         IUserProfileService userProfileService;
+        ILogger logger;
 
         public HomeController() { }
 
-        public HomeController(ILectionHeaderService lectionHeaderService,ILectionEventService lectionEventService, IUserProfileService userProfileService)
+        public HomeController(ILectionHeaderService lectionHeaderService,ILectionEventService lectionEventService, IUserProfileService userProfileService, ILogger logger)
         {
             this.lectionHeaderService = lectionHeaderService;
             this.lectionEventService = lectionEventService;
             this.userProfileService = userProfileService;
+            this.logger = logger;
         }
 
         public ViewResult SearchAll(string searchText)
         {
+            logger.Debug("Search action of Home controller started");
             var lections =
                 lectionHeaderService.Search(searchText)
                     .Select(Mapper.Map<LectionHeaderEntity, LectionHeaderViewModel>)
@@ -57,6 +61,7 @@ namespace QuestionsApp.WebUI.Controllers
 
         public ActionResult Index()
         {
+            logger.Trace("Index action of Home controller started");
             return View();
         }
 

@@ -155,6 +155,10 @@
       <Project>{079d3c09-8721-448f-a18b-d5f08c4ef1d5}</Project>
       <Name>QuestionsApp.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QuestionsApp.Logger\QuestionsApp.Logger.csproj">
+      <Project>{5a78f883-6611-4ac7-a0c4-10de7dd855b6}</Project>
+      <Name>QuestionsApp.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QuestionsApp.ORM\QuestionsApp.ORM.csproj">
       <Project>{2e2f4245-04a0-406e-9098-ac1bdab8d9e1}</Project>
       <Name>QuestionsApp.ORM</Name>
