@@ -42,7 +42,7 @@ namespace QuestionsApp.DAL.Infrastructure
             dbset.Attach(domainEntity);
             dataContext.Entry(domainEntity).State = EntityState.Modified;
         }
-
+        
         public virtual void Delete(TDal entity)
         {
             dbset.Remove(Mapper.Map<TDal, TDomain>(entity));

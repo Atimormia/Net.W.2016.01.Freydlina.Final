@@ -4,7 +4,7 @@ namespace QuestionsApp.WebUI.ViewModels
 {
     public class QuestionViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string AuthorName { get; set; }
 
@@ -20,7 +20,7 @@ namespace QuestionsApp.WebUI.ViewModels
 
         public int? UserProfileId { get; set; }
 
-        public string LectionEventId { get; set; }
+        public int LectionEventId { get; set; }
 
         public virtual UserProfileViewModel UserProfile { get; set; }
     }

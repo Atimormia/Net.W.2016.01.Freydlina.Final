@@ -161,7 +161,7 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult Questions(int id)
         {
             List<QuestionViewModel> model = new List<QuestionViewModel>();
-            foreach (var question in questionService.GetMany(q=>q.LectionEventId == id))
+            foreach (var question in questionService.GetManyOrdered(q=>q.LectionEventId == id))
             {
                 model.Add(Mapper.Map<QuestionEntity,QuestionViewModel>(question));
             }
@@ -181,12 +181,20 @@ namespace QuestionsApp.WebUI.Controllers
             return View("LectionEventPage", createdQuestion);
         }
 
-        public ActionResult LectionEventPage(string id)
+        //[HttpPost]
+        public ActionResult LikesInc(int id)
         {
-            if (id == null)
+            var question = questionService.GetById(id);
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                questionService.LikesInc(id);
+                return RedirectToAction("Questions", new { id = question.LectionEventId });
             }
+            return RedirectToAction("LectionEventPage", question.LectionEventId);
+        }
+
+        public ActionResult LectionEventPage(int id)
+        {
             QuestionViewModel model = new QuestionViewModel {LectionEventId = id};
             return View(model);
         }

@@ -7,7 +7,7 @@
                 <div class="media-left">
                     @if (question.UserProfileId != null)
                     {
-                        <img src="@Url.Action("LoadFile","Profile",new {id=question.UserProfileId})" class="media-object" style="width: 60px">
+                        <img src="@Url.Action("LoadFile","Profile", new {id=question.UserProfileId})" class="media-object" style="width: 60px">
                     }
                     else
                     {
@@ -29,9 +29,23 @@
                         }
                     </h4>
                     <p>@question.QuestionDescription</p>
-                    @*@Ajax.ActionLink("Like","LikesInc",)*@
+
+                    @*@Ajax.ActionLink(@question.Likes.ToString(),"LikesInc",
+                        new {id = question.Id},
+                        new AjaxOptions { UpdateTargetId = "questions", OnSuccess = "Inc("+ question.Id+","+question.Likes + ");" },
+                        new { @class = "btn btn-default btn-xs pull-right", @id = "likes"+question.Id })*@
+                    <a href="#" class="btn btn-default btn-xs pull-right" id = "likes-@question.Id">
+                        @question.Likes Likes
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+    
 }
+@*<script>
+        function Inc(id,likes) {
+            $("#likes-" + id).val(likes + 1);
+            return true;
+        }
+</script>*@

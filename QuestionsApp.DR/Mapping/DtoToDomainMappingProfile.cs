@@ -20,7 +20,9 @@ namespace QuestionsApp.DR.Mapping
             Mapper.CreateMap<DalUserContact, UserContact>();
             Mapper.CreateMap<DalReportType, ReportType>();
             Mapper.CreateMap<DalReport, Report>();
-            Mapper.CreateMap<DalQuestion, Question>();
+            Mapper.CreateMap<DalQuestion, Question>()
+                .ForMember(x => x.LectionEvent,
+                    opt => opt.MapFrom(s => Mapper.Map<DalLectionEvent, LectionEvent>(s.LectionEvent)));
             Mapper.CreateMap<DalLectionStatus, LectionStatus>();
             Mapper.CreateMap<DalLectionHeader, LectionHeader>();
             Mapper.CreateMap<DalLectionEvent, LectionEvent>();
