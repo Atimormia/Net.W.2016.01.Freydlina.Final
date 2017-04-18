@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using QuestionsApp.DAL.Interface.DTO;
 using QuestionsApp.ORM.Model;
 
@@ -20,16 +21,15 @@ namespace QuestionsApp.DR.Mapping
             Mapper.CreateMap<DalUserContact, UserContact>();
             Mapper.CreateMap<DalReportType, ReportType>();
             Mapper.CreateMap<DalReport, Report>();
-            Mapper.CreateMap<DalQuestion, Question>()
-                .ForMember(x => x.LectionEvent,
-                    opt => opt.MapFrom(s => Mapper.Map<DalLectionEvent, LectionEvent>(s.LectionEvent)));
+            Mapper.CreateMap<DalQuestion, Question>();
             Mapper.CreateMap<DalLectionStatus, LectionStatus>();
             Mapper.CreateMap<DalLectionHeader, LectionHeader>();
             Mapper.CreateMap<DalLectionEvent, LectionEvent>();
             //.ForMember(x => x.LectionHeader,
             //    opt => opt.MapFrom(s => Mapper.Map<DalLectionHeader, LectionHeader>(s.LectionHeader)))
             //.ForMember(x => x.LectionStatus,
-            //    opt => opt.MapFrom(s => Mapper.Map<DalLectionStatus, LectionStatus>(s.LectionStatus))); 
+            //    opt => opt.MapFrom(s => Mapper.Map<DalLectionStatus, LectionStatus>(s.LectionStatus)));
+
         }
     }
 }

@@ -41,12 +41,13 @@ namespace QuestionsApp.BLL.Services
 
         public void LikesInc(int id)
         {
-            //var question = questionRepository.GetById(id);
-            //questionRepository.Delete(question);
-            //unitOfWork.Commit();
-            //question.Likes = question.Likes + 1;
-            //questionRepository.Update(question);
-            //unitOfWork.Commit();
+            var question = questionRepository.GetById(id);
+            questionRepository.DeleteById(id);
+            unitOfWork.Commit();
+            question.Likes = question.Likes + 1;
+            question.Id = 0;
+            questionRepository.Add(question);
+            unitOfWork.Commit();
         }
         
         public QuestionEntity GetById(int id)

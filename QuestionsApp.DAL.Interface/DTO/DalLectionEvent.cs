@@ -15,7 +15,7 @@ namespace QuestionsApp.DAL.Interface.DTO
         public string Auditory { get; set; }
         public int LectionStatusId { get; set; }
         public int LectionHeaderId { get; set; }
-        //public virtual DalLectionHeader LectionHeader { get; set; }
-        //public virtual DalLectionStatus LectionStatus { get; set; }
+        //public DalLectionHeader LectionHeader { get; set; }
+        //public DalLectionStatus LectionStatus { get; set; }
     }
 }

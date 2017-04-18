@@ -17,6 +17,6 @@ namespace QuestionsApp.DAL.Interface.DTO
         public bool IsBanned { get; set; }
         public int? UserProfileId { get; set; }
         public int LectionEventId { get; set; }
-        public virtual DalLectionEvent LectionEvent { get; set; }
+        //public virtual DalLectionEvent LectionEvent { get; set; }
     }
 }

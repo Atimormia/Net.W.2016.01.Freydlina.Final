@@ -10,5 +10,6 @@ namespace QuestionsApp.DAL.Interface.DTO
     {
         public int Id { get; set; }
         public string StatusName { get; set; }
+        //public ICollection<DalLectionEvent> LectionEvents { get; set; }
     }
 }

@@ -30,13 +30,13 @@
                     </h4>
                     <p>@question.QuestionDescription</p>
 
-                    @*@Ajax.ActionLink(@question.Likes.ToString(),"LikesInc",
+                    @Ajax.ActionLink(@question.Likes.ToString(),"LikesInc",
                         new {id = question.Id},
-                        new AjaxOptions { UpdateTargetId = "questions", OnSuccess = "Inc("+ question.Id+","+question.Likes + ");" },
-                        new { @class = "btn btn-default btn-xs pull-right", @id = "likes"+question.Id })*@
-                    <a href="#" class="btn btn-default btn-xs pull-right" id = "likes-@question.Id">
+                        new AjaxOptions { UpdateTargetId = "questions", OnSuccess = "this.setState({ className: ' disabled' });" },
+                        new { @class = "btn btn-default btn-xs pull-right", @id = "likes"+question.Id })
+                    @*<a href="#" class="btn btn-default btn-xs pull-right" id = "likes-@question.Id">
                         @question.Likes Likes
-                    </a>
+                    </a>*@
                 </div>
             </div>
         </div>
@@ -44,8 +44,8 @@
     
 }
 @*<script>
-        function Inc(id,likes) {
-            $("#likes-" + id).val(likes + 1);
+        function Liked() {
+            this.setState({ className: " disabled" });
             return true;
         }
 </script>*@

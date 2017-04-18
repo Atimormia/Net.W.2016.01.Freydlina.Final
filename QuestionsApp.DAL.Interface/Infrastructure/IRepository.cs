@@ -11,6 +11,7 @@ namespace QuestionsApp.DAL.Interface.Infrastructure
         void Update(T entity);
         void Delete(T entity);
         void Delete(Expression<Func<T, bool>> where);
+        void DeleteById(long id);
         T GetById(long id);
         T GetById(string id);
         T Get(Expression<Func<T, bool>> where);

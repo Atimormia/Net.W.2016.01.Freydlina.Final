@@ -45,7 +45,13 @@ namespace QuestionsApp.DAL.Infrastructure
         
         public virtual void Delete(TDal entity)
         {
-            dbset.Remove(Mapper.Map<TDal, TDomain>(entity));
+            var domain = Mapper.Map<TDal, TDomain>(entity);
+            dbset.Remove(domain);
+        }
+
+        public virtual void DeleteById(long id)
+        {
+            dbset.Remove(dbset.Find(id));
         }
 
         public virtual void Delete(Expression<Func<TDal, bool>> where)
