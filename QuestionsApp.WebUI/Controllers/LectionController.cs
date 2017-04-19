@@ -184,6 +184,7 @@ namespace QuestionsApp.WebUI.Controllers
         //[HttpPost]
         public ActionResult LikesInc(int id)
         {
+            //ToDo: можно класть в сессию словарь {id:liked}. В зависимости от этого отрисовывать вопросы
             var question = questionService.GetById(id);
             if (ModelState.IsValid)
             {

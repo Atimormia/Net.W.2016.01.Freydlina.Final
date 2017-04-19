@@ -29,11 +29,14 @@
                         }
                     </h4>
                     <p>@question.QuestionDescription</p>
-
-                    @Ajax.ActionLink(@question.Likes.ToString(),"LikesInc",
-                        new {id = question.Id},
+                    <label class="checkbox-inline pull-right">
+                        <input id="like-btn" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if($(this).prop('checked')){$.ajax({url: '@Url.Action("LikesInc",new {id = question.Id})',type: 'POST'})} ">
+                        @question.Likes Likes
+                        @*@Ajax.ActionLink(@question.Likes.ToString(), "LikesInc",
+                        new { id = question.Id },
                         new AjaxOptions { UpdateTargetId = "questions", OnSuccess = "this.setState({ className: ' disabled' });" },
-                        new { @class = "btn btn-default btn-xs pull-right", @id = "likes"+question.Id })
+                        new { @class = /*btn btn-default btn-xs*/" pull-right", @id = "likes" + question.Id })*@
+                    </label>
                     @*<a href="#" class="btn btn-default btn-xs pull-right" id = "likes-@question.Id">
                         @question.Likes Likes
                     </a>*@
@@ -43,9 +46,20 @@
     </div>
     
 }
+
+<script src="../../Scripts/bootstrap-toggle.js"></script>
+<link href="../../Content/bootstrap-toggle.less" rel="stylesheet">
 @*<script>
-        function Liked() {
-            this.setState({ className: " disabled" });
-            return true;
-        }
+  $(function() {
+    $('#like-btn').change(function() {
+      if ($(this).prop('checked')) {
+        $.ajax({
+            url: '@Url.Action("LikesInc",new {id})',
+            type: "POST"
+        })
+      } else {
+
+      }
+    })
+  })
 </script>*@
