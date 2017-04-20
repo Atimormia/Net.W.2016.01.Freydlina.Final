@@ -5,6 +5,7 @@ namespace QuestionsApp.BLL.Interface.Entities
     public class QuestionEntity
     {
         public int Id { get; set; }
+        public int IdOnClient { get; set; }
         public string AuthorName { get; set; }
         public string QuestionDescription { get; set; }
         public DateTime QuestionDateTime { get; set; }

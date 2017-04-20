@@ -162,16 +162,13 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult Questions(int id)
         {
             List<QuestionViewModel> model = new List<QuestionViewModel>();
-            //var questionLiked = (Session["Question-Liked"] as Dictionary<int,bool>) ?? new Dictionary<int, bool>();
             foreach (var question in questionService.GetManyOrdered(q=>q.LectionEventId == id))
             {
-                model.Add(Mapper.Map<QuestionEntity,QuestionViewModel>(question));
-                //if (!questionLiked.ContainsKey(question.Id))
-                //{
-                //    questionLiked.Add(question.Id, false);
-                //}
+                var questionModel = Mapper.Map<QuestionEntity, QuestionViewModel>(question);
+                if (questionModel.IdForClient == 0)
+                    questionModel.IdForClient = questionModel.Id;
+                model.Add(questionModel);
             }
-            //Session["Question-Liked"] = questionLiked;
             return PartialView("_QuestionsPartial", model);
         }
 
@@ -179,33 +176,36 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult AddQuestion(QuestionViewModel createdQuestion)
         {
             QuestionEntity question = Mapper.Map<QuestionViewModel, QuestionEntity>(createdQuestion);
+            question.IdOnClient = question.Id;
             question.QuestionDateTime = DateTime.Now;
             if (ModelState.IsValid)
             {
                 questionService.Create(question);
-
-                //var questionLiked = Session["Question-Liked"] as Dictionary<int, bool>;
-                //questionLiked?.Add(question.Id,false);
-                //Session["Question-Liked"] = questionLiked;
-
                 return RedirectToAction("Questions", new {id= createdQuestion.LectionEventId});
             }
             return View("LectionEventPage", createdQuestion);
         }
 
-        [HttpPost]
+        //[HttpPost]
         public ActionResult LikesInc(int id)
         {
-            //ToDo: обновление секции после инкремента и декремента
             var question = questionService.GetById(id);
+            ((Dictionary<int, bool>)Session["Question-Liked"])[question.IdOnClient] = true;
             if (ModelState.IsValid)
             {
                 questionService.LikesInc(id);
+                return RedirectToAction("Questions", new { id = question.LectionEventId });
+            }
+            return RedirectToAction("LectionEventPage", question.LectionEventId);
+        }
 
-                //var questionLiked = Session["Question-Liked"] as Dictionary<int, bool>;
-                //questionLiked[id] = true;
-                //Session["Question-Liked"] = questionLiked;
-
+        public ActionResult LikesDec(int id)
+        {
+            var question = questionService.GetById(id);
+            ((Dictionary<int, bool>)Session["Question-Liked"])[question.IdOnClient] = false;
+            if (ModelState.IsValid)
+            {
+                questionService.LikesDec(id);
                 return RedirectToAction("Questions", new { id = question.LectionEventId });
             }
             return RedirectToAction("LectionEventPage", question.LectionEventId);

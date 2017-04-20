@@ -9,6 +9,7 @@ namespace QuestionsApp.DAL.Interface.DTO
     public class DalQuestion
     {
         public int Id { get; set; }
+        public int IdOnClient { get; set; }
         public string AuthorName { get; set; }
         public string QuestionDescription { get; set; }
         public DateTime QuestionDateTime { get; set; }

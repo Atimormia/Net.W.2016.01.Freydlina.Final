@@ -12,5 +12,6 @@ namespace QuestionsApp.BLL.Interface.Services
         void Create(QuestionEntity question);
         void LikesInc(int id);
         QuestionEntity GetById(int id);
+        void LikesDec(int id);
     }
 }

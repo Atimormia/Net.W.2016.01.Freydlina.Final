@@ -41,13 +41,7 @@ namespace QuestionsApp.BLL.Services
 
         public void LikesInc(int id)
         {
-            var question = questionRepository.GetById(id);
-            questionRepository.DeleteById(id);
-            unitOfWork.Commit();
-            question.Likes = question.Likes + 1;
-            question.Id = 0;
-            questionRepository.Add(question);
-            unitOfWork.Commit();
+            LikesChange(id,1);
         }
         
         public QuestionEntity GetById(int id)
@@ -55,6 +49,22 @@ namespace QuestionsApp.BLL.Services
             var result = questionRepository.GetById(id);
             unitOfWork.Commit();
             return Mapper.Map<DalQuestion, QuestionEntity>(result);
+        }
+
+        public void LikesDec(int id)
+        {
+            LikesChange(id, -1);
+        }
+
+        private void LikesChange(int id, int difference)
+        {
+            var question = questionRepository.GetById(id);
+            questionRepository.DeleteById(id);
+            unitOfWork.Commit();
+            question.Likes = question.Likes + difference;
+            question.Id = 0;
+            questionRepository.Add(question);
+            unitOfWork.Commit();
         }
 
         public IEnumerable<QuestionEntity> GetManyOrdered(Expression<Func<QuestionEntity, bool>> where)

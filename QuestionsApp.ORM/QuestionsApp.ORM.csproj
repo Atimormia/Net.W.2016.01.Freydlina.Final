@@ -106,6 +106,10 @@
     <Compile Include="Migrations\201701262142042_Photo1.Designer.cs">
       <DependentUpon>201701262142042_Photo1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704201154158_Question.cs" />
+    <Compile Include="Migrations\201704201154158_Question.Designer.cs">
+      <DependentUpon>201704201154158_Question.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationRole.cs" />
     <Compile Include="Model\ApplicationUser.cs" />
@@ -135,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701262142042_Photo1.resx">
       <DependentUpon>201701262142042_Photo1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704201154158_Question.resx">
+      <DependentUpon>201704201154158_Question.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
