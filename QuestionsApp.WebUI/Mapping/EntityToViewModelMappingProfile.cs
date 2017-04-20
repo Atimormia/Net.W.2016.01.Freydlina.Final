@@ -13,7 +13,8 @@ namespace QuestionsApp.WebUI.Mapping
             Mapper.CreateMap<LectionEventEntity, LectionEventViewModel>();
             Mapper.CreateMap<LectionStatusEntity, LectionStatusViewModel>();
             Mapper.CreateMap<LectionHeaderEntity, LectionHeaderViewModel>();
-            Mapper.CreateMap<QuestionEntity, QuestionViewModel>();
+            Mapper.CreateMap<QuestionEntity, QuestionViewModel>()
+                .ForMember(x => x.IdForClient, opt => opt.MapFrom(s => s.Id));
             //Mapper.CreateMap<Report, ReportViewModel>();
             //Mapper.CreateMap<ReportType, ReportTypeViewModel>();
             Mapper.CreateMap<UserContactEntity, UserContactViewModel>();

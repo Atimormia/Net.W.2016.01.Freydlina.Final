@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.WebSockets;
 using AutoMapper;
 using MessagingToolkit.QRCode.Codec;
 using Microsoft.AspNet.Identity;
@@ -161,10 +162,16 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult Questions(int id)
         {
             List<QuestionViewModel> model = new List<QuestionViewModel>();
+            //var questionLiked = (Session["Question-Liked"] as Dictionary<int,bool>) ?? new Dictionary<int, bool>();
             foreach (var question in questionService.GetManyOrdered(q=>q.LectionEventId == id))
             {
                 model.Add(Mapper.Map<QuestionEntity,QuestionViewModel>(question));
+                //if (!questionLiked.ContainsKey(question.Id))
+                //{
+                //    questionLiked.Add(question.Id, false);
+                //}
             }
+            //Session["Question-Liked"] = questionLiked;
             return PartialView("_QuestionsPartial", model);
         }
 
@@ -176,19 +183,29 @@ namespace QuestionsApp.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 questionService.Create(question);
+
+                //var questionLiked = Session["Question-Liked"] as Dictionary<int, bool>;
+                //questionLiked?.Add(question.Id,false);
+                //Session["Question-Liked"] = questionLiked;
+
                 return RedirectToAction("Questions", new {id= createdQuestion.LectionEventId});
             }
             return View("LectionEventPage", createdQuestion);
         }
 
-        //[HttpPost]
+        [HttpPost]
         public ActionResult LikesInc(int id)
         {
-            //ToDo: можно класть в сессию словарь {id:liked}. В зависимости от этого отрисовывать вопросы
+            //ToDo: обновление секции после инкремента и декремента
             var question = questionService.GetById(id);
             if (ModelState.IsValid)
             {
                 questionService.LikesInc(id);
+
+                //var questionLiked = Session["Question-Liked"] as Dictionary<int, bool>;
+                //questionLiked[id] = true;
+                //Session["Question-Liked"] = questionLiked;
+
                 return RedirectToAction("Questions", new { id = question.LectionEventId });
             }
             return RedirectToAction("LectionEventPage", question.LectionEventId);

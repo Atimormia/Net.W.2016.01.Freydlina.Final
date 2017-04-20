@@ -6,6 +6,8 @@ namespace QuestionsApp.WebUI.ViewModels
     {
         public int Id { get; set; }
 
+        public int IdForClient { get; set; }
+
         public string AuthorName { get; set; }
 
         public string QuestionDescription { get; set; }

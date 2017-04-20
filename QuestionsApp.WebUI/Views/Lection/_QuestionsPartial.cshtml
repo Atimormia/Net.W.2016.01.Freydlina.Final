@@ -30,7 +30,27 @@
                     </h4>
                     <p>@question.QuestionDescription</p>
                     <label class="checkbox-inline pull-right">
-                        <input id="like-btn" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if($(this).prop('checked')){$.ajax({url: '@Url.Action("LikesInc",new {id = question.Id})',type: 'POST'})} ">
+                        @{ Session["Question-Liked"] = Session["Question-Liked"] as Dictionary<int, bool> ?? new Dictionary<int, bool>();
+
+                            if (!((Dictionary<int, bool>) Session["Question-Liked"]).ContainsKey(question.IdForClient))
+                            {
+                                ((Dictionary<int, bool>)Session["Question-Liked"]).Add(question.IdForClient,false);
+                                <input id="like-btn-@question.IdForClient" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="@{ ((Dictionary<int, bool>) Session["Question-Liked"])[question.IdForClient] = true; }if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesInc", new {id = question.Id})', type: 'POST' }) } ">
+                            }
+                            else
+                            {
+                                if (((Dictionary<int, bool>) Session["Question-Liked"])[question.IdForClient])
+                                {
+                                            //TODO: Dec implement
+                                    <input id="like-btn-@question.IdForClient" type="checkbox" checked data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="@{ ((Dictionary<int, bool>) Session["Question-Liked"])[question.IdForClient] = false; }if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesDec", new {id = question.Id})', type: 'POST' }) } ">
+                                }
+                                else
+                                {
+                                    <input id="like-btn-@question.IdForClient" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="@{ ((Dictionary<int, bool>) Session["Question-Liked"])[question.IdForClient] = true; }if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesInc", new {id = question.Id})', type: 'POST' }) } ">
+                                }
+                            }
+                        }
+                        @*<input id="like-btn" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesInc", new {id = question.Id})', type: 'POST' }) } ">*@
                         @question.Likes Likes
                         @*@Ajax.ActionLink(@question.Likes.ToString(), "LikesInc",
                         new { id = question.Id },
@@ -49,17 +69,12 @@
 
 <script src="../../Scripts/bootstrap-toggle.js"></script>
 <link href="../../Content/bootstrap-toggle.less" rel="stylesheet">
-@*<script>
+<script>
   $(function() {
     $('#like-btn').change(function() {
       if ($(this).prop('checked')) {
-        $.ajax({
-            url: '@Url.Action("LikesInc",new {id})',
-            type: "POST"
-        })
-      } else {
-
-      }
+        
+      }  
     })
   })
-</script>*@
+</script>
