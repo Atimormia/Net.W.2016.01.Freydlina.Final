@@ -190,6 +190,11 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult LikesInc(int id)
         {
             var question = questionService.GetById(id);
+            if (question == null)
+            {
+                ++id;
+                question = questionService.GetById(id);
+            }
             ((Dictionary<int, bool>)Session["Question-Liked"])[question.IdOnClient] = true;
             if (ModelState.IsValid)
             {
@@ -202,6 +207,11 @@ namespace QuestionsApp.WebUI.Controllers
         public ActionResult LikesDec(int id)
         {
             var question = questionService.GetById(id);
+            if (question == null)
+            {
+                ++id;
+                question = questionService.GetById(id);
+            }
             ((Dictionary<int, bool>)Session["Question-Liked"])[question.IdOnClient] = false;
             if (ModelState.IsValid)
             {

@@ -62,7 +62,8 @@ namespace QuestionsApp.BLL.Services
             questionRepository.DeleteById(id);
             unitOfWork.Commit();
             question.Likes = question.Likes + difference;
-            question.Id = 0;
+            if (question.IdOnClient == 0)
+                question.IdOnClient = question.Id;
             questionRepository.Add(question);
             unitOfWork.Commit();
         }

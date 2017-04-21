@@ -36,17 +36,17 @@
                             if (!((Dictionary<int, bool>) Session["Question-Liked"]).ContainsKey(question.IdForClient))
                             {
                                 ((Dictionary<int, bool>)Session["Question-Liked"]).Add(question.IdForClient,false);
-                                <input id="like-btn-@question.IdForClient" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesInc", new {id = question.Id})', type: 'POST' }) } ">
+                                <input id="like-btn-@question.IdForClient" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesInc", new {id = question.Id})', type: 'POST', success: function() {$('#questions').load(' #questions');} }) } ">
                             }
                             else
                             {
                                 if (((Dictionary<int, bool>) Session["Question-Liked"])[question.IdForClient])
                                 {
-                                    <input id="like-btn-@question.IdForClient" type="checkbox" checked data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesDec", new {id = question.Id})', type: 'POST' }) } ">
+                                    <input id="like-btn-@question.IdForClient" type="checkbox" checked data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesDec", new {id = question.Id})', type: 'POST', success: function() {$('#questions').load(' #questions');} }) } ">
                                 }
                                 else
                                 {
-                                    <input id="like-btn-@question.IdForClient" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesInc", new {id = question.Id})', type: 'POST' }) } ">
+                                    <input id="like-btn-@question.IdForClient" type="checkbox" data-toggle="toggle" data-on="Liked" data-off="Not Liked" data-size="mini" onchange="if ($(this).prop('checked')) { $.ajax({ url: '@Url.Action("LikesInc", new {id = question.Id})', type: 'POST', success: function() {$('#questions').load(' #questions');} }) } ">
                                     }
                                 }
                             var s = ((Dictionary<int, bool>) Session["Question-Liked"]);
